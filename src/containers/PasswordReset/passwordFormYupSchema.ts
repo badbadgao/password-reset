@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 
 const MIN_LENGTH = 8;
+const NO_CONSTRAIN_LENGTH = 15;
 
 export const enum PasswordInvalidError {
   Empty = 'Must not be empty',
@@ -19,7 +20,7 @@ const passwordYupSchema = yup
   })
   .test('match_constrain', PasswordInvalidError.NotMatchConstrain, (currentPassword) => {
     let isValid = true;
-    if (currentPassword.length >= 8 && currentPassword.length < 15) {
+    if (currentPassword.length >= MIN_LENGTH && currentPassword.length < NO_CONSTRAIN_LENGTH) {
       const regex = /^(?=.*\d)(?=.*[\W_].*[\W_])[A-Za-z0-9\W_]{8,}$/;
       isValid = regex.test(currentPassword);
     }
