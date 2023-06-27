@@ -1,8 +1,14 @@
-import "css/App.css";
-import "css/index.css";
+import PasswordReset from './PasswordReset';
 
-const App = () => {
-  return <div className="App">Hello world!</div>;
+import 'css/App.css';
+import 'css/index.css';
+
+const App = (): JSX.Element => {
+  return (
+    <div className="App">
+      <PasswordReset />
+    </div>
+  );
 };
 
 export default App;
