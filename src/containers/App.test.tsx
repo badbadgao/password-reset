@@ -54,13 +54,13 @@ test('password validation: more than 8 characters and contains one number and tw
   expect(errorText1).toBeInTheDocument();
   expect(resetSubmit).toBeDisabled();
 
-  // one speccial character, more than 1 number, letters, not valid
+  // one speccial character, more than 1 number, letters, invalid
   await act(() => fireEvent.change(passwordInput, { target: { value: '123!ddc22' } }));
   const errorText2 = screen.getByText('Must contain one number and two special characters');
   expect(errorText2).toBeInTheDocument();
   expect(resetSubmit).toBeDisabled();
 
-  // two special no number, not valid
+  // two special no number, invalid
   await act(() => fireEvent.change(passwordInput, { target: { value: 'dd!&ddcd' } }));
   const errorText3 = screen.getByText('Must contain one number and two special characters');
   expect(errorText3).toBeInTheDocument();
@@ -84,37 +84,37 @@ test('password validation: more than 15 characters', async () => {
   const passwordInput = screen.getByLabelText('Password');
   const resetSubmit = screen.getByRole('button', { name: 'Reset' });
 
-  // 14 numbers
+  // 14 numbers, invalid
   await act(() => fireEvent.change(passwordInput, { target: { value: '12345678901234' } }));
   const errorText1 = screen.queryByText('Must contain one number and two special characters');
   expect(errorText1).toBeInTheDocument();
   expect(resetSubmit).toBeDisabled();
 
-  // 14 characters
+  // 14 characters, invalid
   await act(() => fireEvent.change(passwordInput, { target: { value: 'asdfghjklzxcvw' } }));
   const errorText2 = screen.queryByText('Must contain one number and two special characters');
   expect(errorText2).toBeInTheDocument();
   expect(resetSubmit).toBeDisabled();
 
-  // 14 combinations characters
+  // 14 combinations characters, invalid
   await act(() => fireEvent.change(passwordInput, { target: { value: '123456789asdf' } }));
   const errorText3 = screen.queryByText('Must contain one number and two special characters');
   expect(errorText3).toBeInTheDocument();
   expect(resetSubmit).toBeDisabled();
 
-  // 15 numbers
+  // 15 numbers, valid
   await act(() => fireEvent.change(passwordInput, { target: { value: '123456789012345' } }));
   const errorText4 = screen.queryByText('Must contain one number and two special characters');
   expect(errorText4).toBeNull();
   expect(resetSubmit).toBeEnabled();
 
-  // 15 letters
+  // 15 letters, valid
   await act(() => fireEvent.change(passwordInput, { target: { value: 'asdfghjklzxcvwa' } }));
   const errorText5 = screen.queryByText('Must contain one number and two special characters');
   expect(errorText5).toBeNull();
   expect(resetSubmit).toBeEnabled();
 
-  // numbers and characters, in total 15
+  // numbers and characters, in total 15, valid
   await act(() => fireEvent.change(passwordInput, { target: { value: 'asdfghjklz12345' } }));
   const errorText6 = screen.queryByText('Must contain one number and two special characters');
   expect(errorText6).toBeNull();
