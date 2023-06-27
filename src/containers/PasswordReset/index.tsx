@@ -56,7 +56,6 @@ const PasswordReset = (): JSX.Element => {
   };
 
   const password = watch('password');
-  console.log('password', password);
 
   return (
     <div className="passwordReset">
