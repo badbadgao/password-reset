@@ -2,16 +2,22 @@ import * as yup from 'yup';
 
 const MIN_LENGTH = 8;
 
+export const enum PasswordInvalidError {
+  Empty = 'Must not be empty',
+  LessThan8Characters = 'Must contain at least 8 characters',
+  NotMatchConstrain = 'Must contain one number and two special characters',
+}
+
 const passwordYupSchema = yup
   .string()
-  .required('Must not be empty')
-  .test('min_8_characters', 'Must contain at least 8 characters', (currentPassword) => {
+  .required(PasswordInvalidError.Empty)
+  .test('min_8_characters', PasswordInvalidError.LessThan8Characters, (currentPassword) => {
     if (currentPassword.length < MIN_LENGTH) {
       return false;
     }
     return true;
   })
-  .test('match_constrain', 'Must contain one number and two special characters', (currentPassword) => {
+  .test('match_constrain', PasswordInvalidError.NotMatchConstrain, (currentPassword) => {
     let isValid = true;
     if (currentPassword.length >= 8 && currentPassword.length < 15) {
       const regex = /^(?=.*\d)(?=.*[\W_].*[\W_])[A-Za-z0-9\W_]{8,}$/;
